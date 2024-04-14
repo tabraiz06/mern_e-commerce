@@ -66,14 +66,17 @@ const Register = () => {
   });
 
   const registerApi = async (data, address) => {
-    const response = await fetch("http://localhost:5000/users/register", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ data, address: address }),
-    });
+    const response = await fetch(
+      "https://mini-cart-backend.onrender.com/users/register",
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ data, address: address }),
+      }
+    );
     const res = await response.json();
     const token = res.token;
 

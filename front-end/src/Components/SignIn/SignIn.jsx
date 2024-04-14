@@ -19,14 +19,17 @@ const SignIn = () => {
 
   const signInApi = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:5000/users/signin", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
+    const response = await fetch(
+      "https://mini-cart-backend.onrender.com/users/signin",
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      }
+    );
 
     const res = await response.json();
     const token = res.token;
