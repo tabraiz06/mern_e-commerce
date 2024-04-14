@@ -1,8 +1,16 @@
 import React from "react";
 import { contextProvider } from "../../Context/Context";
+import { useNavigate } from "react-router-dom";
 
 const AdminProduct = () => {
-  const { adminProducts } = contextProvider();
+  const navigate = useNavigate();
+  const { adminProducts, deleteProduct, filteredProduct, fetchAllProducts } =
+    contextProvider();
+  const handleEditProduct = async (id) => {
+    filteredProduct(id);
+    navigate(`/update/${id}`);
+    fetchAllProducts();
+  };
   return (
     <div className="flex flex-wrap gap-10">
       {adminProducts.length > 0 ? (

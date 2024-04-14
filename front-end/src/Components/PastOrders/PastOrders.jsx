@@ -6,11 +6,10 @@ const PastOrders = () => {
   const location = useLocation();
   const { PastOrders, getAllPastOrders } = contextProvider();
 
-  //   console.log(PastOrders.products);
   //   let products = [];
   useEffect(() => {
     getAllPastOrders();
-  }, [location.pathname === "/orders"]);
+  }, []);
 
   return (
     <div className="flex flex-col my-14 items-center justify-center w-full">

@@ -6,7 +6,6 @@ const Cart = () => {
   const navigate = useNavigate();
   const { cart, createNewOrder, removeCartProduct } = contextProvider();
   let totalPrice = cart.reduce((accum, ele) => (accum += ele.finalPrice), 0);
-  console.log(cart);
 
   const handleClick = () => {
     createNewOrder({
@@ -30,7 +29,6 @@ const Cart = () => {
       </div>
 
       {cart.map((ele) => {
-        console.log(ele);
         return (
           <div
             key={ele._id}

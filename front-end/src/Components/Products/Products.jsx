@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { contextProvider } from "../../Context/Context";
 import UpdtaeProduct from "../updateProduct/UpdtaeProduct";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,7 @@ const Products = () => {
     filteredProduct,
     addtoCart,
     fetchALLcarts,
+    fetchAllProducts,
   } = contextProvider();
   const [filter, setFilter] = useState(false);
 
@@ -31,13 +32,7 @@ const Products = () => {
     setFilterProducts(filter);
   };
 
-  const handleEditProduct = async (id) => {
-    filteredProduct(id);
-    navigate(`/update/${id}`);
-  };
-
   const handleCart = (id, price) => {
-    console.log(id);
     if (quantity === 0) {
       alert("add quantity");
     } else {
@@ -52,6 +47,9 @@ const Products = () => {
       fetchALLcarts();
     }
   };
+  useEffect(() => {
+    fetchAllProducts();
+  }, []);
 
   return (
     <div>
@@ -65,7 +63,6 @@ const Products = () => {
         />
       </div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
-        {console.log(adminProducts)}
         {products.map((ele, index) => {
           return (
             <div key={ele._id}>

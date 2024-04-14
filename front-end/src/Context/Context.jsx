@@ -157,7 +157,6 @@ const Context = ({ children }) => {
       },
     });
     const result = await response.json();
-    console.log(result);
 
     // const finalResult = result.pastOrders;
 
@@ -235,7 +234,7 @@ const Context = ({ children }) => {
       },
     });
     const result = await response.json();
-    console.log(result);
+
     setCart(result);
   };
 
@@ -283,6 +282,7 @@ const Context = ({ children }) => {
         fetchAdminProducts,
         cart,
         removeCartProduct,
+        fetchAllProducts,
       }}
     >
       {children}

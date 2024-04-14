@@ -35,9 +35,6 @@ const NavBar = () => {
         <NavLink to="/cart" style={{ textDecoration: "none" }}>
           <div>Cart :{cart.length}</div>
         </NavLink>
-        <NavLink to="/orders" style={{ textDecoration: "none" }}>
-          <div>Orders</div>
-        </NavLink>
 
         {!token ? (
           <NavLink to="/signin" style={{ textDecoration: "none" }}>
@@ -45,6 +42,9 @@ const NavBar = () => {
           </NavLink>
         ) : (
           <>
+            <NavLink to="/orders" style={{ textDecoration: "none" }}>
+              <div>Orders</div>
+            </NavLink>
             <Link onClick={handleLogout} style={{ textDecoration: "none" }}>
               <div className="logout">Log Out</div>
             </Link>

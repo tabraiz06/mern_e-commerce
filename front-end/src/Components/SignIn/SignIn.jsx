@@ -30,7 +30,6 @@ const SignIn = () => {
 
     const res = await response.json();
     const token = res.token;
-    console.log(token);
 
     if (response.ok) {
       fetchAllAddresses();
