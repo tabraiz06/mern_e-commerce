@@ -37,6 +37,7 @@ const Products = () => {
   };
 
   const handleCart = (id, price) => {
+    console.log(id);
     if (quantity === 0) {
       alert("add quantity");
     } else {
@@ -65,108 +66,50 @@ const Products = () => {
       </div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
         {console.log(adminProducts)}
-        {admin ? (
-          adminProducts.length > 0 ? (
-            adminProducts.map((ele, index) => {
-              return (
-                <div key={ele._id}>
-                  <div key={ele._id} className="max-w-[500px] overflow-hidden">
-                    <img
-                      src={ele.p_image}
-                      alt="product image"
-                      className="rounded-2xl h-[300px] w-full"
-                    />
-                    <h1 className=" font-bold text-2xl">{ele.p_name}</h1>
-                    <p className="text-lg">{ele.p_discription}</p>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="quantity"
-                        className="text-xl font-semibold"
-                      ></label>
-                      {/* <input type="number" className="w-[50px]" /> */}
-                      <h2 className="font-bold text-2xl">
-                        Price: {ele.p_price}/RS
-                      </h2>
-                    </div>
-
-                    <div className="flex justify-between gap-5">
-                      <button
-                        onClick={() => handleEditProduct(ele._id)}
-                        className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded"
-                      >
-                        Edit Product
-                      </button>
-                      <button
-                        className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded"
-                        onClick={() => deleteProduct(ele._id)}
-                      >
-                        Remove Product
-                      </button>
-                    </div>
-                  </div>
+        {products.map((ele, index) => {
+          return (
+            <div key={ele._id}>
+              <div key={ele._id} className="max-w-[500px] overflow-hidden">
+                <img
+                  src={ele.p_image}
+                  alt="product image"
+                  className="rounded-2xl h-[300px] w-full"
+                />
+                <h1 className=" font-bold text-2xl">{ele.p_name}</h1>
+                <p className="text-lg">{ele.p_discription}</p>
+                <div className="flex justify-between my-[10px]">
+                  <label htmlFor="quantity" className="text-xl font-semibold">
+                    qtn
+                  </label>
+                  <input
+                    value={quantity}
+                    type="number"
+                    className="w-[83px] h-[30px] border border-black "
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                  <h2 className="font-bold text-2xl">
+                    Price: {ele.p_price}/RS <br />
+                    <span className="text-sm font-normal">
+                      final price: {quantity * ele.p_price}
+                    </span>
+                  </h2>
                 </div>
-              );
-            })
-          ) : (
-            <>
-              <div className="flex min-h-[500px] items-center justify-center  ">
-                <h1 className="font-bold text-3xl">
-                  you dont have any product yet
-                </h1>
+
+                <div className="flex justify-between">
+                  <button className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded">
+                    view
+                  </button>
+                  <button
+                    className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded"
+                    onClick={() => handleCart(ele._id, ele.p_price)}
+                  >
+                    Add to cart
+                  </button>
+                </div>
               </div>
-            </>
-          )
-        ) : (
-          <>
-            {products.map((ele, index) => {
-              return (
-                <div key={ele._id}>
-                  <div key={ele._id} className="max-w-[500px] overflow-hidden">
-                    <img
-                      src={ele.p_image}
-                      alt="product image"
-                      className="rounded-2xl h-[300px] w-full"
-                    />
-                    <h1 className=" font-bold text-2xl">{ele.p_name}</h1>
-                    <p className="text-lg">{ele.p_discription}</p>
-                    <div className="flex justify-between my-[10px]">
-                      <label
-                        htmlFor="quantity"
-                        className="text-xl font-semibold"
-                      >
-                        qtn
-                      </label>
-                      <input
-                        value={quantity}
-                        type="number"
-                        className="w-[83px] h-[30px] border border-black "
-                        onChange={(e) => setQuantity(e.target.value)}
-                      />
-                      <h2 className="font-bold text-2xl">
-                        Price: {ele.p_price}/RS <br />
-                        <span className="text-sm font-normal">
-                          final price: {quantity * ele.p_price}
-                        </span>
-                      </h2>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <button className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded">
-                        view
-                      </button>
-                      <button
-                        className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded"
-                        onClick={() => handleCart(ele._id, ele.p_price)}
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

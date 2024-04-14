@@ -235,6 +235,7 @@ const Context = ({ children }) => {
       },
     });
     const result = await response.json();
+    console.log(result);
     setCart(result);
   };
 

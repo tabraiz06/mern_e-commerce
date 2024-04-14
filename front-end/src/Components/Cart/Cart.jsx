@@ -1,7 +1,9 @@
 import React from "react";
 import { contextProvider } from "../../Context/Context";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { cart, createNewOrder, removeCartProduct } = contextProvider();
   let totalPrice = cart.reduce((accum, ele) => (accum += ele.finalPrice), 0);
   console.log(cart);
@@ -12,6 +14,7 @@ const Cart = () => {
       totalPrice,
     });
     cart.map((ele) => removeCartProduct(ele._id));
+    navigate("/orders");
   };
 
   return (
@@ -27,12 +30,12 @@ const Cart = () => {
       </div>
 
       {cart.map((ele) => {
+        console.log(ele);
         return (
           <div
             key={ele._id}
             className="flex max-h-[250px] w-full items-center justify-center gap-[40px] my-[15px]"
           >
-            {" "}
             <div className="img">
               <img
                 src={ele.productId.p_image}

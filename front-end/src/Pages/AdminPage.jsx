@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Products from "../Components/Products/Products";
 import { contextProvider } from "../Context/Context";
+import AdminProduct from "../Components/Products/AdminProduct";
 
 const AdminPage = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const AdminPage = () => {
           </button>
         </Link>
       </div>
-      <Products />
+      <AdminProduct />
     </div>
   );
 };

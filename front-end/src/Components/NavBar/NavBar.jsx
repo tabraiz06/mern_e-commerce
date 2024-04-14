@@ -13,6 +13,7 @@ const NavBar = () => {
     localStorage.removeItem("token");
 
     Navigate("/");
+    window.location.reload();
   };
   return (
     <div className="nav-container">
@@ -31,16 +32,12 @@ const NavBar = () => {
             <div>Admin</div>
           </NavLink>
         )}
-        {!admin && (
-          <>
-            <NavLink to="/cart" style={{ textDecoration: "none" }}>
-              <div>Cart :{cart.length}</div>
-            </NavLink>
-            <NavLink to="/orders" style={{ textDecoration: "none" }}>
-              <div>Orders</div>
-            </NavLink>
-          </>
-        )}
+        <NavLink to="/cart" style={{ textDecoration: "none" }}>
+          <div>Cart :{cart.length}</div>
+        </NavLink>
+        <NavLink to="/orders" style={{ textDecoration: "none" }}>
+          <div>Orders</div>
+        </NavLink>
 
         {!token ? (
           <NavLink to="/signin" style={{ textDecoration: "none" }}>

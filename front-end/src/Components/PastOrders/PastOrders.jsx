@@ -4,15 +4,13 @@ import { useLocation } from "react-router-dom";
 
 const PastOrders = () => {
   const location = useLocation();
-  const { PastOrders } = contextProvider();
+  const { PastOrders, getAllPastOrders } = contextProvider();
+
   //   console.log(PastOrders.products);
   //   let products = [];
-  //   useEffect(() => {
-  //     for (let ele of PastOrders) {
-  //       products.push(ele.products);
-  //       console.log(products);
-  //     }
-  //   }, [location.pathname === "/orders"]);
+  useEffect(() => {
+    getAllPastOrders();
+  }, [location.pathname === "/orders"]);
 
   return (
     <div className="flex flex-col my-14 items-center justify-center w-full">
