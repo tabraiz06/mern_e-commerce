@@ -4,6 +4,10 @@ for seller- need to register as seller and then login
 then seller can view all products, he can add new products using admin route, he can update and remove products. 
 he can also view make orders and can view past orders.
 
+lgin details -
+for normal user- email user@gmail.com passowrd 123456
+for seller- email admin@gmail.com passowrd 123456
+
 
 way to start the project
 
