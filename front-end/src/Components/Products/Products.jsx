@@ -17,6 +17,7 @@ const Products = () => {
     addtoCart,
     fetchALLcarts,
     fetchAllProducts,
+    fetchAllAddresses,
   } = contextProvider();
   const [filter, setFilter] = useState(false);
 
@@ -49,6 +50,7 @@ const Products = () => {
   };
   useEffect(() => {
     fetchAllProducts();
+    fetchAllAddresses();
   }, []);
 
   return (
