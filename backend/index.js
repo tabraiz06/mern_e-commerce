@@ -9,8 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const url =
-  "mongodb+srv://tabraiz:tabraiz@cluster0.76smate.mongodb.net/mern_e-commerce?retryWrites=true&w=majority";
+const url = "mongodb://localhost:27017/e-commerce";
 mongoose.connect(url).then(console.log("connected to db"));
 app.use("/users", userApi);
 app.use("/api", productsApi);

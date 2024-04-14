@@ -32,7 +32,7 @@ const Products = () => {
   };
 
   const handleEditProduct = async (id) => {
-    await filteredProduct(id);
+    filteredProduct(id);
     navigate(`/update/${id}`);
   };
 
@@ -64,6 +64,7 @@ const Products = () => {
         />
       </div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
+        {console.log(adminProducts)}
         {admin ? (
           adminProducts.length > 0 ? (
             adminProducts.map((ele, index) => {
@@ -128,7 +129,7 @@ const Products = () => {
                     />
                     <h1 className=" font-bold text-2xl">{ele.p_name}</h1>
                     <p className="text-lg">{ele.p_discription}</p>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between my-[10px]">
                       <label
                         htmlFor="quantity"
                         className="text-xl font-semibold"
@@ -136,8 +137,9 @@ const Products = () => {
                         qtn
                       </label>
                       <input
+                        value={quantity}
                         type="number"
-                        className="w-[50px]"
+                        className="w-[83px] h-[30px] border border-black "
                         onChange={(e) => setQuantity(e.target.value)}
                       />
                       <h2 className="font-bold text-2xl">

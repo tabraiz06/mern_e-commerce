@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { contextProvider } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
 
@@ -10,11 +10,12 @@ const UpdtaeProduct = () => {
     filterproduct;
 
   const [image, setImage] = useState(p_image);
+
   const initials = {
     p_catagery: "",
     p_name: "",
     p_discription: "",
-    p_image: "",
+    p_image: p_image,
     p_price: 0,
     sellerId: "",
   };
@@ -23,7 +24,7 @@ const UpdtaeProduct = () => {
     p_catagery: p_catagery,
     p_name: p_name,
     p_discription: p_discription,
-    p_image: image,
+    p_image: p_image,
     p_price: p_price,
     sellerId: sellerId,
   });
@@ -34,6 +35,7 @@ const UpdtaeProduct = () => {
       reader.readAsDataURL(selectedFile);
       reader.onload = () => {
         const imageData = reader.result;
+
         setImage(imageData);
         // setAddproduct({addproduct.p_image: imageData});
       };

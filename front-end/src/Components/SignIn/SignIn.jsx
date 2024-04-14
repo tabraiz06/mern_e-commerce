@@ -15,6 +15,7 @@ const SignIn = () => {
 
   const navigate = useNavigate();
   const [Token, setToken] = useState("");
+  const { fetchAllAddresses } = contextProvider();
 
   const signInApi = async (e) => {
     e.preventDefault();
@@ -32,6 +33,7 @@ const SignIn = () => {
     console.log(token);
 
     if (response.ok) {
+      fetchAllAddresses();
       localStorage.setItem("token", token);
       navigate("/");
 

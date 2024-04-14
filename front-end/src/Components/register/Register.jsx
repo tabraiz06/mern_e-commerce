@@ -47,7 +47,7 @@ const states = [
 const Register = () => {
   const navigate = useNavigate();
 
-  const { adminREG } = contextProvider();
+  const { adminREG, fetchAllAddresses } = contextProvider();
 
   const [address, setaddress] = useState({
     address: "",
@@ -78,6 +78,7 @@ const Register = () => {
     const token = res.token;
 
     if (response.ok) {
+      fetchAllAddresses();
       localStorage.setItem("token", token);
       navigate("/");
 

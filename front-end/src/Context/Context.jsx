@@ -8,14 +8,14 @@ const Context = ({ children }) => {
   const [PastOrders, setPastOrders] = useState([]);
   const [summaryToggle, setSummaryToggle] = useState(false);
   const [pastOrderSummaryToggle, setPastOrderSummaryToggle] = useState(false);
-  const [filterproduct, setFilterproduct] = useState();
+  const [filterproduct, setFilterproduct] = useState({});
   const [OrderConfimation, setOrderConfimation] = useState(false);
   const [cancelToggle, setCanceltoggle] = useState(false);
   const [userName, setUserName] = useState("");
   const [products, setProducts] = useState([]);
   const [admin, setAdmin] = useState(false);
   const [adminREG, setAdminREG] = useState(false);
-  const [adminProducts, setAdminProducts] = useState();
+  const [adminProducts, setAdminProducts] = useState([]);
   const [sellerId, setSellerId] = useState();
   const [cart, setCart] = useState([]);
 
@@ -121,9 +121,31 @@ const Context = ({ children }) => {
         Token: localStorage.getItem("token"),
       },
     });
-    const result = await response.json();
-
-    fetchALLcarts();
+    const res = await response.json();
+    if (response.ok) {
+      fetchALLcarts();
+      toast.success(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.warn(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
   //get all past orders
   const getAllPastOrders = async () => {

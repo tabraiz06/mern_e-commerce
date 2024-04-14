@@ -69,7 +69,7 @@ router.get("/products/:id", async (req, res) => {
 //update the products by seller
 router.put("/products/:id", async (req, res) => {
   const { p_catagery, p_name, p_discription, p_image, p_price } = req.body;
-  console.log(req.params.id);
+  console.log(req.body);
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
       {
