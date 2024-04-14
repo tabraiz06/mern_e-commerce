@@ -1,0 +1,225 @@
+import React, { useState } from "react";
+import "./Register.css";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { contextProvider } from "../../Context/Context";
+
+const states = [
+  "",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Maharashtra",
+  "Madhya Pradesh",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Tripura",
+  "Telangana",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman & Nicobar (UT)",
+  "Chandigarh (UT)",
+  "Dadra & Nagar Haveli and Daman & Diu (UT)",
+  "Delhi (NCT)",
+  "Jammu & Kashmir (UT)",
+  "Ladakh (UT)",
+  "Lakshadweep (UT)",
+  "Puducherry (UT)",
+];
+
+const Register = () => {
+  const navigate = useNavigate();
+
+  const { adminREG } = contextProvider();
+
+  const [address, setaddress] = useState({
+    address: "",
+    state: "",
+    district: "",
+    pinCode: "",
+  });
+
+  const [details, setdetails] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+    isAdim: "",
+    sellerId: "",
+  });
+
+  const registerApi = async (data, address) => {
+    const response = await fetch("http://localhost:5000/users/register", {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ data, address: address }),
+    });
+    const res = await response.json();
+    const token = res.token;
+
+    if (response.ok) {
+      localStorage.setItem("token", token);
+      navigate("/");
+
+      toast.success(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.warn(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  function getInputChangeHandler(key) {
+    return (e) => {
+      const val = e.target.value;
+      setdetails((details) => {
+        return {
+          ...details,
+          [key]: val,
+        };
+      });
+    };
+  }
+
+  const handleAddressChange = (e) => {
+    setaddress({ ...address, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="register-form min-h-[919px]">
+      <span className="register-title">REGISTER</span>
+      <form
+        method="POST"
+        action="/products"
+        onSubmit={(e) => {
+          e.preventDefault();
+          registerApi(details, address);
+        }}
+      >
+        <div className="form-grid">
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            onChange={getInputChangeHandler("name")}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            onChange={getInputChangeHandler("email")}
+          />
+          <input
+            type="text"
+            placeholder="Phone"
+            name="phoneNumber"
+            onChange={getInputChangeHandler("phoneNumber")}
+          />
+          {adminREG && (
+            <>
+              <input
+                type="text"
+                name="isAdmin"
+                placeholder="type true or false"
+                // className="hidden"
+                onChange={getInputChangeHandler("isAdmin")}
+              />
+              <input
+                type="text"
+                name="sellerId"
+                onChange={getInputChangeHandler("sellerId")}
+                placeholder="create seller id"
+                required
+              />
+            </>
+          )}
+          <select
+            type="text"
+            placeholder="State"
+            name="state"
+            onChange={handleAddressChange}
+          >
+            {states.map((state, key) => {
+              return (
+                <option key={key} value={state}>
+                  {state}
+                </option>
+              );
+            })}
+          </select>
+          <input
+            type="text"
+            placeholder="District"
+            name="district"
+            onChange={handleAddressChange}
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            name="address"
+            onChange={handleAddressChange}
+          />
+          <input
+            type="text"
+            placeholder="Pincode"
+            name="pinCode"
+            onChange={handleAddressChange}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={getInputChangeHandler("password")}
+          />
+          <input type="password" placeholder="Confirm Password" />
+        </div>
+        <div className="terms">
+          <input type="checkbox" id="terms" />
+          <label htmlFor="terms">
+            I agree to Terms & Condition receiving marketing and promotional
+            materials
+          </label>
+        </div>
+        <button type="Submit">Register</button>
+      </form>
+    </div>
+  );
+};
+
+export default Register;
