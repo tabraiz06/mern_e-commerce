@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import UpdtaeProduct from "./Components/updateProduct/UpdtaeProduct";
 import CartPage from "./Pages/CartPage";
 import PastOrders from "./Components/PastOrders/PastOrders";
+import ViewProduct from "./Components/ViewProduct/ViewProduct";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
         <Route path="/add/product" element={<AddNewProduct />} />
         <Route path="/update/:id" element={<UpdtaeProduct />} />
+        <Route path="/product/:id" element={<ViewProduct />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<PastOrders />} />
       </Routes>

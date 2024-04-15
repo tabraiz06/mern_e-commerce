@@ -28,7 +28,11 @@ const PastOrders = () => {
           {PastOrders.map((ele) => {
             return (
               <>
+                {console.log(ele.products)}
                 {ele.products.map((ele, index) => {
+                  {
+                    console.log(ele.productId);
+                  }
                   return (
                     <tr key={index}>
                       <td>{ele.productId.p_name}</td>

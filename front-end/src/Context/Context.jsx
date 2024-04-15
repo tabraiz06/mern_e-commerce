@@ -18,6 +18,7 @@ const Context = ({ children }) => {
   const [adminProducts, setAdminProducts] = useState([]);
   const [sellerId, setSellerId] = useState();
   const [cart, setCart] = useState([]);
+  const [viewSingleProduct, setViewSingleProduct] = useState({});
 
   let userAddress = [];
   // fetch ALL products
@@ -85,7 +86,31 @@ const Context = ({ children }) => {
         body: JSON.stringify(address),
       }
     );
-    const result = await response.json();
+    const res = await response.json();
+    console.log(response.ok);
+    if (response.ok) {
+      toast.success(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.warn(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const createNewOrder = async (product) => {
@@ -180,6 +205,7 @@ const Context = ({ children }) => {
     const result = await response.json();
 
     // const finalResult = result.pastOrders;
+    console.log(result);
 
     setPastOrders(result);
   };
@@ -270,6 +296,23 @@ const Context = ({ children }) => {
 
     setCart(result);
   };
+  // view single product
+  const ViewsingleProduct = async (id) => {
+    const response = await fetch(
+      `https://mini-cart-backend.onrender.com/api/products/${id}`,
+      {
+        method: "GET",
+        headers: {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      }
+    );
+    const result = await response.json();
+
+    setViewSingleProduct(result);
+  };
 
   useEffect(() => {
     fetchAllProducts();
@@ -316,6 +359,8 @@ const Context = ({ children }) => {
         cart,
         removeCartProduct,
         fetchAllProducts,
+        ViewsingleProduct,
+        viewSingleProduct,
       }}
     >
       {children}

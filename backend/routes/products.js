@@ -54,6 +54,7 @@ router.get("/products/search", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+// view single product
 router.get("/products/:id", async (req, res) => {
   try {
     const product = await Product.findById({ _id: req.params.id });

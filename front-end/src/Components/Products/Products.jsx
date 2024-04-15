@@ -18,6 +18,7 @@ const Products = () => {
     fetchALLcarts,
     fetchAllProducts,
     fetchAllAddresses,
+    ViewsingleProduct,
   } = contextProvider();
   const [filter, setFilter] = useState(false);
 
@@ -48,6 +49,12 @@ const Products = () => {
       fetchALLcarts();
     }
   };
+
+  // view single product
+  const viewProduct = async (id) => {
+    await ViewsingleProduct(id);
+    navigate(`/product/${id}`);
+  };
   useEffect(() => {
     fetchAllProducts();
     fetchAllAddresses();
@@ -72,7 +79,7 @@ const Products = () => {
                 <img
                   src={ele.p_image}
                   alt="product image"
-                  className="rounded-2xl h-[300px] w-full"
+                  className="rounded-2xl h-[250px] w-[70%] mx-auto my-0"
                 />
                 <h1 className=" font-bold text-2xl">{ele.p_name}</h1>
                 <p className="text-lg">{ele.p_discription}</p>
@@ -81,7 +88,6 @@ const Products = () => {
                     qtn
                   </label>
                   <input
-                    value={quantity}
                     type="number"
                     className="w-[83px] h-[30px] border border-black "
                     onChange={(e) => setQuantity(e.target.value)}
@@ -95,7 +101,10 @@ const Products = () => {
                 </div>
 
                 <div className="flex justify-between">
-                  <button className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded">
+                  <button
+                    onClick={() => viewProduct(ele._id)}
+                    className=" font-bold text-2xl bg-blue-800 px-[20px] py-[10px] rounded"
+                  >
                     view
                   </button>
                   <button
