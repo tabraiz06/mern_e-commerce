@@ -34,7 +34,7 @@ const ImageUploadComponent = () => {
         name="image"
       />
       <button onClick={handleUpload}>Upload Image</button>
-      <img src={image} />
+      <img src={"./images/and.png"} />
     </div>
   );
 };

@@ -19,7 +19,7 @@ const AdminProduct = () => {
             <div key={ele._id}>
               <div key={ele._id} className="max-w-[500px] overflow-hidden">
                 <img
-                  src={ele.p_image}
+                  src={`./images/${ele.p_image}`}
                   alt="product image"
                   className="rounded-2xl h-[300px] w-full"
                 />

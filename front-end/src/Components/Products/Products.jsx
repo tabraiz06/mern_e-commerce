@@ -20,6 +20,7 @@ const Products = () => {
     fetchAllAddresses,
     ViewsingleProduct,
   } = contextProvider();
+
   const [filter, setFilter] = useState(false);
 
   const [search, setSearch] = useState("");
@@ -73,11 +74,12 @@ const Products = () => {
       </div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
         {products.map((ele, index) => {
+          // console.log(ele, 77);
           return (
             <div key={ele._id}>
               <div key={ele._id} className="max-w-[500px] overflow-hidden">
                 <img
-                  src={ele.p_image}
+                  src={`./images/${ele.p_image}`}
                   alt="product image"
                   className="rounded-2xl h-[250px] w-[70%] mx-auto my-0"
                 />

@@ -35,6 +35,7 @@ const Context = ({ children }) => {
     const result = await response.json();
 
     setProducts(result);
+    console.log(result);
   };
 
   const fetchAdminProducts = async () => {
