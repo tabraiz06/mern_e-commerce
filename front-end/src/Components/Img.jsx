@@ -6,29 +6,35 @@ const ImageUploadComponent = () => {
 
   const handleImageChange = (event) => {
     const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const imageData = reader.result;
-        setImage(imageData);
-      };
-      reader.readAsDataURL(selectedFile);
-    }
+    setImage(selectedFile);
   };
+  console.log(image);
 
   const handleUpload = async () => {
+    const formdata = new FormData();
+    formdata.append("image", image);
     try {
-      const response = await axios.post("/upload-image", { image });
-      console.log("Image uploaded successfully:", response.data);
+      const response = await fetch("http://localhost:5000/api/image", {
+        method: "POST",
+
+        body: formdata,
+      });
+      console.log("Image uploaded successfully:", response);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
-  console.log(image);
+
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImage(e.target.files[0])}
+        name="image"
+      />
       <button onClick={handleUpload}>Upload Image</button>
+      <img src={image} />
     </div>
   );
 };

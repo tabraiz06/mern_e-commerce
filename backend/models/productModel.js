@@ -24,7 +24,7 @@ const productModel = mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "user",
   },
-  sellerId: {},
+  sellerId: String,
 });
 const Product = mongoose.model("product", productModel);
 module.exports = Product;

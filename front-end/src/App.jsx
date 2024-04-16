@@ -13,6 +13,7 @@ import UpdtaeProduct from "./Components/updateProduct/UpdtaeProduct";
 import CartPage from "./Pages/CartPage";
 import PastOrders from "./Components/PastOrders/PastOrders";
 import ViewProduct from "./Components/ViewProduct/ViewProduct";
+import ImageUploadComponent from "./Components/Img";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
       {/* <FileUploadComponent /> */}
     </BrowserRouter>
+    // <ImageUploadComponent />
   );
 }
 

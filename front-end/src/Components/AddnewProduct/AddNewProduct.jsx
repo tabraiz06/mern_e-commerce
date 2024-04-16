@@ -17,33 +17,25 @@ const AddNewProduct = () => {
   };
 
   const [addproduct, setAddproduct] = useState(initials);
-  const handleImageChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      const reader = new FileReader();
-      reader.readAsDataURL(selectedFile);
-      reader.onload = () => {
-        const imageData = reader.result;
-        setImage(imageData);
-        // setAddproduct({addproduct.p_image: imageData});
-      };
-      reader.readAsDataURL(selectedFile);
-    }
+  const handleImageChange = async (e) => {
+    await setImage(e.target.files[0]);
+    console.log(image);
   };
+
   const handleChange = (event) => {
     setAddproduct({ ...addproduct, [event.target.name]: event.target.value });
   };
   const handleClick = async (e) => {
     e.preventDefault();
-    addNewProduct({
-      p_catagery: addproduct.p_catagery,
-      p_name: addproduct.p_name,
-      p_discription: addproduct.p_discription,
+    const formData = new FormData();
 
-      p_price: addproduct.p_price,
-      sellerId: sellerId,
-      p_image: image,
-    });
+    formData.append("p_catagery", addproduct.p_catagery);
+    formData.append("p_name", addproduct.p_name);
+    formData.append("p_discription", addproduct.p_discription);
+    formData.append("p_price", addproduct.p_price);
+    formData.append("sellerId", sellerId);
+    formData.append("p_image", image);
+    addNewProduct(formData);
     navigate("/admin");
   };
   // p_catagery, p_name, p_discription, p_image, p_price, sellerId;

@@ -26,8 +26,8 @@ const Home = () => {
                 <button
                   className="register"
                   onClick={(e) => {
-                    setRegisterToggle(false);
-                    setAdminREG(!adminREG);
+                    setRegisterToggle(true);
+                    setAdminREG(false);
                     setRedesign([
                       "brand-name-small",
                       "description-small",
@@ -41,7 +41,7 @@ const Home = () => {
                   className="register m-10"
                   onClick={(e) => {
                     setRegisterToggle(true);
-                    setAdminREG(!adminREG);
+                    setAdminREG(true);
                     setRedesign([
                       "brand-name-small",
                       "description-small",

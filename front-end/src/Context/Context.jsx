@@ -268,17 +268,18 @@ const Context = ({ children }) => {
 
   const addNewProduct = async (product) => {
     const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/add",
+      "http://localhost:5000/api/add",
+
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Token: localStorage.getItem("token"),
         },
-        body: JSON.stringify(product),
+        body: product,
       }
     );
     const res = await response.json();
+    console.log(res);
   };
 
   const fetchALLcarts = async () => {
