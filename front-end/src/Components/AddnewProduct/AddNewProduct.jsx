@@ -17,9 +17,8 @@ const AddNewProduct = () => {
   };
 
   const [addproduct, setAddproduct] = useState(initials);
-  const handleImageChange = async (e) => {
-    await setImage(e.target.files[0]);
-    console.log(image);
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
 
   const handleChange = (event) => {

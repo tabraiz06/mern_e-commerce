@@ -12,7 +12,7 @@ const AdminProduct = () => {
     fetchAllProducts();
   };
   return (
-    <div className="flex flex-wrap gap-10">
+    <div className="flex flex-wrap gap-10 p-[20px]">
       {adminProducts.length > 0 ? (
         adminProducts.map((ele, index) => {
           return (

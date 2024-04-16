@@ -74,7 +74,6 @@ const Products = () => {
       </div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
         {products.map((ele, index) => {
-          // console.log(ele, 77);
           return (
             <div key={ele._id}>
               <div key={ele._id} className="max-w-[500px] overflow-hidden">

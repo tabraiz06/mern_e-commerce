@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 const PastOrders = () => {
   const location = useLocation();
-  const { PastOrders, getAllPastOrders } = contextProvider();
+  const { pastOrders, getAllPastOrders } = contextProvider();
 
   //   let products = [];
   useEffect(() => {
@@ -25,14 +25,10 @@ const PastOrders = () => {
           </tr>
         </thead>
         <tbody>
-          {PastOrders.map((ele) => {
+          {pastOrders.map((ele) => {
             return (
               <>
-                {console.log(ele.products)}
                 {ele.products.map((ele, index) => {
-                  {
-                    console.log(ele.productId);
-                  }
                   return (
                     <tr key={index}>
                       <td>{ele.productId.p_name}</td>

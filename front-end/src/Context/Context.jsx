@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 const ContextApi = createContext();
 
 const Context = ({ children }) => {
-  const [PastOrders, setPastOrders] = useState([]);
+  const [pastOrders, setPastOrders] = useState([]);
   const [summaryToggle, setSummaryToggle] = useState(false);
   const [pastOrderSummaryToggle, setPastOrderSummaryToggle] = useState(false);
   const [filterproduct, setFilterproduct] = useState({});
@@ -35,7 +35,6 @@ const Context = ({ children }) => {
     const result = await response.json();
 
     setProducts(result);
-    console.log(result);
   };
 
   const fetchAdminProducts = async () => {
@@ -88,8 +87,9 @@ const Context = ({ children }) => {
       }
     );
     const res = await response.json();
-    console.log(response.ok);
+
     if (response.ok) {
+      fetchALLcarts();
       toast.success(`🦄 ${res.message} !`, {
         position: "top-right",
         autoClose: 5000,
@@ -205,9 +205,6 @@ const Context = ({ children }) => {
     );
     const result = await response.json();
 
-    // const finalResult = result.pastOrders;
-    console.log(result);
-
     setPastOrders(result);
   };
 
@@ -269,7 +266,7 @@ const Context = ({ children }) => {
 
   const addNewProduct = async (product) => {
     const response = await fetch(
-      "http://localhost:5000/api/add",
+      "https://mini-cart-backend.onrender.com/api/add",
 
       {
         method: "POST",
@@ -280,7 +277,31 @@ const Context = ({ children }) => {
       }
     );
     const res = await response.json();
-    console.log(res);
+
+    if (response.ok) {
+      fetchAdminProducts();
+      toast.success(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else {
+      toast.warn(`🦄 ${res.message} !`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   const fetchALLcarts = async () => {
@@ -331,7 +352,7 @@ const Context = ({ children }) => {
         fetchALLcarts,
         userName,
         setUserName,
-        PastOrders,
+        pastOrders,
         createNewOrder,
         userAddress,
         addtoCart,

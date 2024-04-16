@@ -22,7 +22,7 @@ const ViewProduct = () => {
       navigate("/orders");
     }
   };
-  console.log(viewSingleProduct);
+
   return (
     <div className="flex  justify-evenly">
       <div className="img">
