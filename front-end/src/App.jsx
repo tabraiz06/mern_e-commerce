@@ -14,8 +14,11 @@ import CartPage from "./Pages/CartPage";
 import PastOrders from "./Components/PastOrders/PastOrders";
 import ViewProduct from "./Components/ViewProduct/ViewProduct";
 import ImageUploadComponent from "./Components/Img";
+import { contextProvider } from "./Context/Context";
+import CustomerOrder from "./Components/PastOrders/CustomerOrder";
 
 function App() {
+  const { sellerId } = contextProvider();
   return (
     <BrowserRouter>
       <NavBar />
@@ -31,6 +34,7 @@ function App() {
         <Route path="/product/:id" element={<ViewProduct />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/orders" element={<PastOrders />} />
+        <Route path="/:id/orders" element={<CustomerOrder />} />
       </Routes>
 
       {/* <FileUploadComponent /> */}

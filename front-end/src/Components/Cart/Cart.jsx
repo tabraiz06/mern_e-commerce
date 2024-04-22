@@ -36,7 +36,7 @@ const Cart = () => {
           >
             <div className="img">
               <img
-                src={ele.productId.p_image}
+                src={`./images/${ele.productId.p_image}`}
                 alt="img"
                 className="w-[150px]"
               />

@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 const ContextApi = createContext();
 
 const Context = ({ children }) => {
+  const [allPastOrders, setAllPastOrders] = useState([]);
+
   const [pastOrders, setPastOrders] = useState([]);
   const [summaryToggle, setSummaryToggle] = useState(false);
   const [pastOrderSummaryToggle, setPastOrderSummaryToggle] = useState(false);
@@ -19,6 +21,7 @@ const Context = ({ children }) => {
   const [sellerId, setSellerId] = useState();
   const [cart, setCart] = useState([]);
   const [viewSingleProduct, setViewSingleProduct] = useState({});
+  const [cxDetails, setCxDetails] = useState([]);
 
   let userAddress = [];
   // fetch ALL products
@@ -67,6 +70,7 @@ const Context = ({ children }) => {
     const result = await response.json();
 
     setSellerId(result.sellerId);
+
     // setUserAddresses(result);
     userAddress.push(result.address);
     if (result.isAdmin === "true") {
@@ -191,7 +195,7 @@ const Context = ({ children }) => {
       });
     }
   };
-  //get all past orders
+  //get all past orders for logged in user
   const getAllPastOrders = async () => {
     const response = await fetch(
       "https://mini-cart-backend.onrender.com/api/orders",
@@ -206,6 +210,20 @@ const Context = ({ children }) => {
     const result = await response.json();
 
     setPastOrders(result);
+  };
+  // get all past orders
+  const fetchAllPastOrders = async () => {
+    const response = await fetch(
+      "https://mini-cart-backend.onrender.com/api/all/orders",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/jso",
+        },
+      }
+    );
+    const result = await response.json();
+    setAllPastOrders(result);
   };
 
   const filteredProduct = async (id) => {
@@ -336,6 +354,37 @@ const Context = ({ children }) => {
 
     setViewSingleProduct(result);
   };
+  // sller will get his order details and cx details also
+  let sellersOrders = [];
+
+  allPastOrders.map((ele) =>
+    ele.products.map((ele) => {
+      if (ele.productId.sellerId === sellerId) {
+        sellersOrders.push(ele);
+      }
+    })
+  );
+
+  const usersId = [];
+  sellersOrders.map((ele) => usersId.push(ele.userId));
+
+  let userDetails = [];
+
+  const singleUserDetais = async (id) => {
+    const response = await fetch(
+      `https://mini-cart-backend.onrender.com/users/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const result = await response.json();
+
+    userDetails.push(result);
+    setCxDetails(userDetails);
+  };
 
   useEffect(() => {
     fetchAllProducts();
@@ -343,12 +392,18 @@ const Context = ({ children }) => {
     getAllPastOrders();
     fetchAdminProducts();
     fetchALLcarts();
+    fetchAllPastOrders();
+    setTimeout(() => {
+      usersId.map((ele) => singleUserDetais(ele));
+    }, 2000);
     // filterproduct("65e062a583d25daac0522642");
   }, []);
 
   return (
     <ContextApi.Provider
       value={{
+        sellersOrders,
+        cxDetails,
         fetchALLcarts,
         userName,
         setUserName,
@@ -384,6 +439,8 @@ const Context = ({ children }) => {
         fetchAllProducts,
         ViewsingleProduct,
         viewSingleProduct,
+        allPastOrders,
+        usersId,
       }}
     >
       {children}

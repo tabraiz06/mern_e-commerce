@@ -14,12 +14,10 @@ router.post("/register", async (req, res) => {
 
   try {
     const userExist = await Users.findOne({ email });
-    const sellerIdExist = await Users.findOne({ sellerId });
+    // const sellerIdExist = await Users.findOne({ sellerId });
     console.log(sellerIdExist);
     if (userExist) {
       res.status(400).json({ message: "email is already registered" });
-    } else if (sellerIdExist) {
-      res.status(400).json({ message: "seller id is already exist" });
     } else {
       const securePassword = await bcrypt.hash(password, 10);
       const user = await Users.create({
@@ -96,6 +94,20 @@ router.get("/fetchaddress", verifyToken, async (req, res) => {
   try {
     const address = await Users.findOne({ _id: req.user }, "-password");
     res.status(200).json(address);
+  } catch (error) {
+    res.status(400).json({
+      error: error.message,
+    });
+  }
+});
+// fetch single user with id
+router.get("/:id", async (req, res) => {
+  try {
+    const singleUser = await Users.findById(
+      { _id: req.params.id },
+      "-password"
+    );
+    res.status(200).json(singleUser);
   } catch (error) {
     res.status(400).json({
       error: error.message,

@@ -63,15 +63,7 @@ const Products = () => {
 
   return (
     <div>
-      <div>
-        {filter && <UpdtaeProduct />}
-        <input
-          type="text"
-          name="search"
-          id="search"
-          onChange={(e) => handleChange(e)}
-        />
-      </div>
+      <div>{filter && <UpdtaeProduct />}</div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
         {products.map((ele, index) => {
           return (

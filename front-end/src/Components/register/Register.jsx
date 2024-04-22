@@ -62,7 +62,7 @@ const Register = () => {
     phoneNumber: "",
     password: "",
     isAdim: "",
-    sellerId: "",
+    sellerId: Date.now(),
   });
 
   const registerApi = async (data, address) => {
