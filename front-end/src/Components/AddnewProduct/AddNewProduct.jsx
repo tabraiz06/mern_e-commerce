@@ -17,9 +17,15 @@ const AddNewProduct = () => {
   };
 
   const [addproduct, setAddproduct] = useState(initials);
-  const handleImageChange = async (e) => {
-    const selectedFile = e.target.files[0];
-    setImage(selectedFile);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleChange = (event) => {

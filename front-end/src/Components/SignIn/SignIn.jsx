@@ -5,11 +5,24 @@ import { useNavigate } from "react-router-dom";
 import { contextProvider } from "../../Context/Context";
 import { ToastContainer, toast } from "react-toastify";
 const SignIn = () => {
-  const [credentials, setCredentials] = useState({
-    email: "",
+  let initials = {
+    email: "user@gmail.com",
     phoneNumber: "",
-    password: "",
-  });
+    password: "123456",
+  };
+  const [credentials, setCredentials] = useState(initials);
+  const [admin, setAdmin] = useState(false);
+
+  const handleInput = () => {
+    setAdmin(true);
+    initials = {
+      email: "admin@gmail.com",
+      phoneNumber: "",
+      password: "123456",
+    };
+    setCredentials(initials);
+  };
+  console.log(admin);
   // const { getAllPastOrders, PastOrders, userName, setUserName } =
   //   contextProvider();
 
@@ -78,6 +91,7 @@ const SignIn = () => {
     <form method="POST" onSubmit={signInApi}>
       <span className="signIn-title">SIGN IN</span>
       <input
+        value={credentials.email}
         type="text"
         placeholder="Mobile/Email"
         // value={credentials.email || credentials.phoneNumber}
@@ -98,13 +112,24 @@ const SignIn = () => {
         }}
       />
       <input
+        value={credentials.password}
         type="password"
         placeholder="Password"
         // value={credentials.password}
         onChange={getInputChangeHandler("password")}
       />
       <img src={padlock} />
-      <span className="forgot-password">Forgot Password?</span>
+      <div className="flex w-full justify-between">
+        <span className="text-blue-500" onClick={handleInput}>
+          Sign in as seller
+        </span>
+        <span
+          className="forgot-password"
+          onClick={() => [setAdmin(false), setCredentials(initials)]}
+        >
+          Sign in as Customer
+        </span>
+      </div>
       <button type="Submit">Sign In</button>
     </form>
   );

@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 const ContextApi = createContext();
 
 const Context = ({ children }) => {
+  const [serchItems, setSerchItems] = useState("");
+
   const [allPastOrders, setAllPastOrders] = useState([]);
 
   const [pastOrders, setPastOrders] = useState([]);
@@ -402,6 +404,8 @@ const Context = ({ children }) => {
   return (
     <ContextApi.Provider
       value={{
+        serchItems,
+        setSerchItems,
         sellersOrders,
         cxDetails,
         fetchALLcarts,

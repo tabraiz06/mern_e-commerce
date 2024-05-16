@@ -59,7 +59,7 @@ form {
   color: #4552c1;
   text-transform: capitalize;
   opacity: 1;
-  position: absolute;
+  /* position: absolute; */
   cursor: pointer;
 }
 
