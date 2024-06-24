@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const ContextApi = createContext();
 
 const Context = ({ children }) => {
+  let url = "http://localhost:5000";
   const [serchItems, setSerchItems] = useState("");
 
   const [allPastOrders, setAllPastOrders] = useState([]);
@@ -28,47 +29,38 @@ const Context = ({ children }) => {
   let userAddress = [];
   // fetch ALL products
   const fetchAllProducts = async () => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/products",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/products", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const result = await response.json();
 
     setProducts(result);
   };
 
   const fetchAdminProducts = async () => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/products/seller",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/products/seller", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const result = await response.json();
 
     setAdminProducts(result);
   };
 
   const fetchAllAddresses = async () => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/users/fetchaddress",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/users/fetchaddress", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const result = await response.json();
 
     setSellerId(result.sellerId);
@@ -81,17 +73,14 @@ const Context = ({ children }) => {
   };
 
   const addtoCart = async (address) => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/cart",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(address),
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(address),
+    });
     const res = await response.json();
 
     if (response.ok) {
@@ -121,17 +110,14 @@ const Context = ({ children }) => {
   };
 
   const createNewOrder = async (product) => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/create/order",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-        body: JSON.stringify(product),
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/create/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify(product),
+    });
 
     const res = await response.json();
 
@@ -161,16 +147,13 @@ const Context = ({ children }) => {
   };
   //remove item from cart
   const removeCartProduct = async (id) => {
-    const response = await fetch(
-      `https://mini-cart-backend.onrender.com/api/cart/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:5000/api/cart/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const res = await response.json();
     if (response.ok) {
       fetchALLcarts();
@@ -199,61 +182,49 @@ const Context = ({ children }) => {
   };
   //get all past orders for logged in user
   const getAllPastOrders = async () => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/orders",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/orders", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const result = await response.json();
 
     setPastOrders(result);
   };
   // get all past orders
   const fetchAllPastOrders = async () => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/all/orders",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/jso",
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/all/orders", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/jso",
+      },
+    });
     const result = await response.json();
     setAllPastOrders(result);
   };
 
   const filteredProduct = async (id) => {
-    const response = await fetch(
-      `https://mini-cart-backend.onrender.com/api/products/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const result = await response.json();
     setFilterproduct(result);
   };
 
   const deleteProduct = async (id) => {
-    const response = await fetch(
-      `https://mini-cart-backend.onrender.com/api/delete/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:5000/api/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const res = await response.json();
 
     if (response.ok) {
@@ -286,7 +257,7 @@ const Context = ({ children }) => {
 
   const addNewProduct = async (product) => {
     const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/add",
+      "http://localhost:5000/api/add",
 
       {
         method: "POST",
@@ -325,33 +296,27 @@ const Context = ({ children }) => {
   };
 
   const fetchALLcarts = async () => {
-    const response = await fetch(
-      "https://mini-cart-backend.onrender.com/api/getcart",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5000/api/getcart", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+    });
     const result = await response.json();
 
     setCart(result);
   };
   // view single product
   const ViewsingleProduct = async (id) => {
-    const response = await fetch(
-      `https://mini-cart-backend.onrender.com/api/products/${id}`,
-      {
-        method: "GET",
+    const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      method: "GET",
+      headers: {
         headers: {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          "Content-Type": "application/json",
         },
-      }
-    );
+      },
+    });
     const result = await response.json();
 
     setViewSingleProduct(result);
@@ -373,15 +338,12 @@ const Context = ({ children }) => {
   let userDetails = [];
 
   const singleUserDetais = async (id) => {
-    const response = await fetch(
-      `https://mini-cart-backend.onrender.com/users/${id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`http://localhost:5000/users/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     const result = await response.json();
 
     userDetails.push(result);

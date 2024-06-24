@@ -44,6 +44,7 @@ router.post("/image", upload.single("image"), async (req, res) => {});
 
 router.post("/add", verifyToken, upload.single("p_image"), async (req, res) => {
   const { p_catagery, p_name, p_discription, p_price, sellerId } = req.body;
+
   const imagePath = req.file.filename;
 
   try {

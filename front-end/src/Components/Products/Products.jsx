@@ -103,7 +103,6 @@ const Products = () => {
         />
       </div>
       <div className="flex flex-wrap gap-5 items-center justify-center">
-        {console.log(select)}
         {products
           .filter((ele) => {
             if (search !== "") {

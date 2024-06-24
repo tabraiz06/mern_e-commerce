@@ -47,25 +47,22 @@ const UpdtaeProduct = () => {
   };
   const handleClick = async (e) => {
     e.preventDefault();
-    const response = await fetch(
-      `https://mini-cart-backend.onrender.com/api/products/${_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Token: localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          p_catagery: addproduct.p_catagery,
-          p_name: addproduct.p_name,
-          p_discription: addproduct.p_discription,
+    const response = await fetch(`http://localhost:5000/api/products/${_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Token: localStorage.getItem("token"),
+      },
+      body: JSON.stringify({
+        p_catagery: addproduct.p_catagery,
+        p_name: addproduct.p_name,
+        p_discription: addproduct.p_discription,
 
-          p_price: addproduct.p_price,
-          sellerId: sellerId,
-          p_image: image,
-        }),
-      }
-    );
+        p_price: addproduct.p_price,
+        sellerId: sellerId,
+        p_image: image,
+      }),
+    });
     const result = await response.json();
 
     if (response.ok) {

@@ -7,6 +7,8 @@ const AddNewProduct = () => {
   const navigate = useNavigate();
 
   const [image, setImage] = useState(null);
+  const [imgFile, setImgFile] = useState(null);
+
   const initials = {
     p_catagery: "",
     p_name: "",
@@ -18,6 +20,8 @@ const AddNewProduct = () => {
 
   const [addproduct, setAddproduct] = useState(initials);
   const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setImgFile(selectedFile);
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -40,7 +44,7 @@ const AddNewProduct = () => {
     formData.append("p_discription", addproduct.p_discription);
     formData.append("p_price", addproduct.p_price);
     formData.append("sellerId", sellerId);
-    formData.append("p_image", image);
+    formData.append("p_image", imgFile);
     addNewProduct(formData);
     navigate("/admin");
   };
